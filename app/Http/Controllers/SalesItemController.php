@@ -62,6 +62,7 @@ class SalesItemController extends Controller
         $sales_item = SalesItem::create([
             'quantity' => request('quantity'),
             'item_code' => request('item_code'),
+            'date' => now(),
         ]);
         
         $product = Product::where('code', $sales_item->item_code)->firstOrFail();

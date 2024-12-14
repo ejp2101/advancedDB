@@ -85,11 +85,13 @@ class ProductController extends Controller
         request()->validate([
             'total_quantity' => ['required'],
             'price' => ['required'],
+            'buy_price' => ['required'],
         ]);
 
         $product->update([
             'total_quantity' => request('total_quantity'),
             'price' => request('price'),
+            'buy_price' => request('buy_price'),
         ]);
 
         return redirect('/products/' . $product->id);

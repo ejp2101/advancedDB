@@ -18,6 +18,7 @@
                 @php
                 $price = $result->price;
                 $amount = $result->amount;
+                $quantity = $result->quantity;
                 @endphp
                 <tr class="hover:bg-gray-100">
                         <td class="px-4 py-2 border border-gray-300 text-center">{{ $result->code }}</td>
@@ -26,7 +27,7 @@
                         <td class="px-4 py-2 border border-gray-300 text-center">{{ $result->price }}</td>
                         <td class="px-4 py-2 border border-gray-300 text-center">{{ $result->quantity }}</td>
                         <td class="px-4 py-2 border border-gray-300 text-center">
-                        @IF (($price * $amount) == 0)
+                        @IF (($price * $quantity) == 0)
                         {{ $result->amount }}
                         @ELSE
                         {{ $result->price * $result->quantity }}
