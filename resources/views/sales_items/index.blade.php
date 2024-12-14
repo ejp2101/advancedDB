@@ -10,29 +10,29 @@
             <div class="alert alert-success text-red-500">{{ session('deleted') }}</div>
         @endif
         <form method="GET" action="{{ route('sales_items.index') }}" class="row g-2 mb-4 w">
-            @csrf
-
-            <div class="flex h-4 items-center justify-between">
-                <div class="col-md-4">
-                    <x-form-input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Search by name" class="form-control">
-                    </x-form-input>
-                </div>
-                <div class="col-md-3">
-                    <select name="sort_by" class="form-select">
-                        <option value="alphabetical" {{ $sort_by == 'alphabetical' ? 'selected' : '' }}>Alphabetical</option>
-                        <option value="quantity" {{ $sort_by == 'quantity' ? 'selected' : '' }}>Quantity</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select name="sort_order" class="form-select">
-                        <option value="asc" {{ $sort_order == 'asc' ? 'selected' : '' }}>asc</option>
-                        <option value="desc" {{ $sort_order == 'desc' ? 'selected' : '' }}>desc</option>
-                    </select>
-                </div>
-                <div class="filters col-md-2">
-                    <x-form-button type="submit" class="btn btn-primary w-200">Apply Filters</x-form-button>
-                </div>
+        @csrf
+        <div class="flex h-4 items-center justify-between">
+            <div class="col-md-4">
+                <x-form-input type="text" name="search" value="{{ old('search', $search) }}" placeholder="Search by name" class="form-control">
+                </x-form-input>
             </div>
+        <div class="col-md-3">
+            <select name="sort_by" class="form-select">
+                <option value="alphabetical" {{ $sort_by == 'alphabetical' ? 'selected' : '' }}>Alphabetical</option>
+                <option value="quantity" {{ $sort_by == 'quantity' ? 'selected' : '' }}>Quantity</option>
+                <option value="date" {{ $sort_by == 'date' ? 'selected' : '' }}>Date</option> <!-- New Date Sort Option -->
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select name="sort_order" class="form-select">
+                <option value="asc" {{ $sort_order == 'asc' ? 'selected' : '' }}>asc</option>
+                <option value="desc" {{ $sort_order == 'desc' ? 'selected' : '' }}>desc</option>
+            </select>
+        </div>
+        <div class="filters col-md-2">
+            <x-form-button type="submit" class="btn btn-primary w-200">Apply Filters</x-form-button>
+        </div>
+        </div>
         </form>
         @foreach ($sales_items as $sales_item)
             <a href="" class="block px-2 py-2 border border-gray-200 rounded-lg bg-slate-300">
@@ -47,8 +47,7 @@
 
                         @ENDIF
                         </strong> {{ $sales_item['quantity'] }} </div>
-                    <div><strong class="text-laracasts">Amount: </strong>{{ $sales_item['amount']}}</div>
-                    <div><strong class="text-laracasts">Date: </strong>{{ ($sales_item['date'])}}</div>
+                    <div><strong class="text-laracasts">Sale Date: </strong>{{ ($sales_item['date'])}}</div>
                 </div>
             </a>
         @endforeach

@@ -16,7 +16,7 @@
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <img class="h-8 w-8" src="https://laracasts.com/images/logo/logo-triangle.svg"
+                            <img class="h-8 w-8" src="https://www.pngfind.com/pngs/m/210-2100302_emoticon-whatsapp-png-image-transparent-background-smiley-images.png"
                                  alt="Your Company">
                         </div>
                         <div class="hidden md:block">
