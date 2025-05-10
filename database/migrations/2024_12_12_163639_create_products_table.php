@@ -1,50 +1,38 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use MongoDB\Laravel\Facades\Schema;
+use MongoDB\Laravel\Schema\Blueprint;
 
-class CreateProductsTable extends Migration
+return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id(); // Unique identifier for each product
-            $table->unsignedInteger('category')->nullable(); // Category ID
-            $table->string('sub_category', 255)->nullable(); // Sub-category name or identifier
-            $table->string('brand', 255)->nullable(); // Brand of the product
-            $table->string('code', 255)->unique()->nullable(); // Unique code for the product
-            $table->string('name', 255); // Name of the product
-            $table->text('description')->nullable(); // Description of the product
-            $table->decimal('min_quantity', 10, 2)->nullable(); // Minimum stock quantity
-            $table->integer('total_quantity')->nullable(); // Total quantity in stock
-            $table->decimal('price', 10, 2)->nullable(); // Selling price
-            $table->decimal('buy_price', 10, 2)->nullable(); // Purchase price
-            $table->boolean('is_inventory_item')->default(0)->nullable(); // Flag for inventory item (1 = true, 0 = false)
-            $table->boolean('is_sell_item')->default(0)->nullable(); // Flag for sellable item (1 = true, 0 = false)
-            $table->boolean('is_active')->default(1)->nullable(); // Flag for active item (1 = true, 0 = false)
-            $table->boolean('is_for_in')->default(0)->nullable(); // Flag for inward transactions (1 = true, 0 = false)
-            $table->boolean('is_for_out')->default(0)->nullable(); // Flag for outward transactions (1 = true, 0 = false)
-            $table->timestamp('create_date')->nullable(); // Date and time the record was created
-            $table->timestamp('update_date')->nullable(); // Date and time the record was last updated
-            $table->unsignedInteger('unit_of_measure_id')->nullable(); // Foreign key to the unit of measure
-
-            $table->timestamps(); // Adds created_at and updated_at columns
+        Schema::create('products', function (Blueprint $collection) {
+            $collection->index('code', ['unique' => true]); // Unique product code
+            $collection->string('category')->nullable();
+            $collection->string('sub_category')->nullable();
+            $collection->string('brand')->nullable();
+            $collection->string('name');
+            $collection->text('description')->nullable();
+            $collection->decimal('min_quantity', 10, 2)->nullable();
+            $collection->integer('total_quantity')->nullable();
+            $collection->decimal('price', 10, 2)->nullable();
+            $collection->decimal('buy_price', 10, 2)->nullable();
+            $collection->boolean('is_inventory_item')->default(false);
+            $collection->boolean('is_sell_item')->default(false);
+            $collection->boolean('is_active')->default(true);
+            $collection->boolean('is_for_in')->default(false);
+            $collection->boolean('is_for_out')->default(false);
+            $collection->timestamp('create_date')->nullable();
+            $collection->timestamp('update_date')->nullable();
+            $collection->string('unit_of_measure_id')->nullable(); // Reference ID
+            $collection->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('products');
     }
-}
+};
